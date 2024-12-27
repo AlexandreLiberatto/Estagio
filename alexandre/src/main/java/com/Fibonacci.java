@@ -27,7 +27,7 @@ public class Fibonacci {
     //Metodo linear
     public int fibonacciLinear(int numero){
         if(numero < 0){
-            throw new RuntimeException("O número precisa ser maior oum igual à zero!");
+            throw new RuntimeException("O número precisa ser maior ou igual à zero!");
         } 
 
         if(numero == 0){
@@ -46,6 +46,16 @@ public class Fibonacci {
             numeroAnterior = totalDoisNumAnterior;
         }
         return numeroAnterior;
+    }
+
+    //Método para imprimir o resultado no console
+    public void imprimirRecursivo(int numero){
+        System.out.println("O Fibonacci de "+ numero +" é: "+ fibonacciRecursivo(numero));
+    }
+
+    //Método para imprimir o resultado no console
+    public void imprimirLinear(int numero){
+        System.out.println("O Fibonacci de "+ numero +" é: "+ fibonacciLinear(numero));
     }
 
     //Getters e Setters
