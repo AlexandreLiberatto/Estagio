@@ -5,41 +5,27 @@ import java.util.List;
 
 public class NumerosPrimos {
 
-    private int numero;
-
-    //Construtor
-    public NumerosPrimos(int numero){
-        this.numero = numero;
-    }
-
     //metodo recursivo para imprimir numeros primos
-    public int primoRecursivo(int numero){
-        //verifica se o número é de dois para cima
+    public void primoRecursivo(int numero){
+        //verifica o número
         if(numero <= 1){
             throw new RuntimeException("O número deve ser maior que 1");
         }
-        //Lista para contar os divisores por numero
-        List<Integer> contaPrimos = new ArrayList<>();
+      
+        List<Integer> primos = encontrarPrimosRecursivo(numero, 2, new ArrayList<>());
+        System.out.println("Números primos até "+numero+": "+primos);
+    }
 
-        //se o numero for primo adiciona mais um na lista
-        for(int i = 2; i <= numero; i++){
-            if(i % numero == 0){
-                contaPrimos.add(1);
-            }
+    private List<Integer> encontrarPrimosRecursivo(int limite, int atual, List<Integer> primos){
+        if(atual > limite){
+            return primos;
         }
 
-        //se o numero for primo, imprime todos os primos até o número digitado
-        if(contaPrimos.size() == 1){
-            System.out.println("O número é primo!");
-            for(int i = 1; i <= numero; i++){
-                if(i % numero == 0){
-                    System.out.println("Número primo: "+ i);
-                }
-            }
-        } else {
-            System.out.println("O número "+ numero +" não é primo!");
+        if(ehPrimo(atual)){
+            primos.add(atual);
         }
-        return primoRecursivo(numero);
+
+        return encontrarPrimosRecursivo(limite, atual + 1, primos);
     }
 
     //metodo linear para imprimir numeros primos
@@ -49,35 +35,29 @@ public class NumerosPrimos {
             throw new RuntimeException("O número deve ser maior que 1");
         }
         //Lista para contar os divisores por numero
-        List<Integer> contaPrimos = new ArrayList<>();
+        List<Integer> primos = new ArrayList<>();
 
         //se o numero for primo adiciona mais um na lista
         for(int i = 2; i <= numero; i++){
-            if(i % numero == 0){
-                contaPrimos.add(1);
+            if(ehPrimo(i)){
+                primos.add(i);
             }
         }
 
-        //se o numero for primo, imprime todos os primos até o número digitado
-        if(contaPrimos.size() == 1){
-            System.out.println("O número é primo!");
-            for(int i = 1; i <= numero; i++){
-                if(i % numero == 0){
-                    System.out.println("Número primo: "+ i);
-                }
-            }
-        } else {
-            System.out.println("O número "+ numero +" não é primo!");
+        System.out.println("Números primos até "+numero+": "+primos);
+    }
+
+    private boolean ehPrimo(int num){
+        if(num < 2){
+            return false;
         }
-    }
 
-    //getter e setter
-    public int getNumero(){
-        return numero;
-    }
-
-    public void setNumero(int numero){
-        this.numero = numero;
+        for(int i = 2; i <= Math.sqrt(num); i++){
+            if(num % i == 0){
+                return false;
+            }
+        }
+        return true;
     }
     
 }
